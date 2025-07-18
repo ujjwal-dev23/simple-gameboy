@@ -1,22 +1,33 @@
 project('simple_gameboy', 'cpp',
   default_options: ['cpp_std=c++23', 'warning_level=3', 'buildtype=debug'])
 
-src_dir = 'src'
-tests_dir = 'tests'
+build_deps = [dependency('sdl3', required: true)]
 
-deps = [dependency('sdl3', required: true)]
-
-sources = files(
+build_sources = files(
   'src/main.cpp'
 )
 
-headers = files(
+build_headers = files(
   'src/main.hpp'
 )
 
 emu_executable = executable(
   'gb_emu',
-  sources,
-  dependencies : deps,
+  build_sources,
+  dependencies : build_deps,
   cpp_args: ['-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-Wconversion', '-Wsign-conversion']
 )
+
+test_deps = [dependency('catch2', fallback: ['catch2', 'catch2_with_main_dep'])]
+
+test_sources = files(
+  'tests/main_test.cpp'
+)
+
+test_executable = executable(
+  'gb_emu_tests',
+  test_sources,
+  dependencies: test_deps
+)
+
+test('unit_tests', test_executable)
