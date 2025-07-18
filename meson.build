@@ -21,7 +21,9 @@ emu_executable = executable(
 test_deps = [dependency('catch2', fallback: ['catch2', 'catch2_with_main_dep'])]
 
 test_sources = files(
-  'tests/main_test.cpp'
+  'tests/sample_test.cpp',
+  'tests/cartridge_tests.cpp',
+  'src/cartridge/cartridge.cpp',
 )
 
 test_executable = executable(

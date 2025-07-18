@@ -9,6 +9,6 @@ using SIGNED_BYTE = int8_t;
 using WORD = uint16_t;
 using SIGNED_WORD = int16_t;
 
-const int GAMEBOY_CART_SIZE{0x200000};
+constexpr int GAMEBOY_CART_SIZE{0x200000};
 
 #endif

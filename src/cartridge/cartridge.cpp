@@ -3,17 +3,18 @@
 #include <algorithm>
 #include <fstream>
 
-using namespace Cartridge;
+const std::array<BYTE, GAMEBOY_CART_SIZE>& Cartridge::get_memory() const {
+  return memory;
+}
 
-void load_game_into_cart(const std::string rom_file_path) {
-  std::fill(m_CartridgeMemory.begin(), m_CartridgeMemory.end(), 0);
+void Cartridge::load_game_into_cart(const std::string rom_file_path) {
+  std::fill(memory.begin(), memory.end(), 0);
 
   std::ifstream rom;
   rom.open(rom_file_path, std::ios::binary);
   if (!rom.is_open()) {
     // TODO: Implement some form of error handling
   }
-  rom.read(reinterpret_cast<char *>(m_CartridgeMemory.data()),
-           GAMEBOY_CART_SIZE);
+  rom.read(reinterpret_cast<char*>(memory.data()), GAMEBOY_CART_SIZE);
   rom.close();
 }

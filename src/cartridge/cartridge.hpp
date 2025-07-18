@@ -1,17 +1,19 @@
 #ifndef CARTRIDGE_H
 #define CARTRIDGE_H
 
+#include <array>
 #include <string>
-#include <vector>
 
-#include "../constants/constants.hpp"
+#include "../../include/constants.hpp"
 
-namespace Cartridge {
+class Cartridge {
+ private:
+  // Represents the memory on a Gameboy Catridge
+  std::array<BYTE, GAMEBOY_CART_SIZE> memory;
 
-// Represents the memory on a Gameboy Catridge
-std::vector<BYTE> m_CartridgeMemory(GAMEBOY_CART_SIZE);
-
-void load_game_into_cart(std::string rom_file_path);
-}  // namespace Cartridge
+ public:
+  void load_game_into_cart(std::string rom_file_path);
+  const std::array<BYTE, GAMEBOY_CART_SIZE>& get_memory() const;
+};
 
 #endif
