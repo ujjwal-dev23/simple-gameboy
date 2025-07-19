@@ -7,9 +7,9 @@
 #include "../src/constants.hpp"
 
 // Generates a fake rom with repeating patterns of [0,1,2,3,...]
-const std::array<BYTE, GAMEBOY_CART_SIZE> gen_fake_rom() {
-  std::array<BYTE, GAMEBOY_CART_SIZE> fake_rom;
-  for (size_t i = 0; i < GAMEBOY_CART_SIZE; ++i) {
+const std::array<BYTE, Constants::GAMEBOY_CART_SIZE> gen_fake_rom() {
+  std::array<BYTE, Constants::GAMEBOY_CART_SIZE> fake_rom;
+  for (size_t i = 0; i < Constants::GAMEBOY_CART_SIZE; ++i) {
     fake_rom[i] = static_cast<BYTE>(i % 256);
   }
   return fake_rom;
@@ -27,14 +27,15 @@ struct TestFileRemover {
 TEST_CASE("rom_loading_into_cart_correctly", "[cartridge][rom]") {
   Cartridge game_cart;
 
-  const std::array<BYTE, GAMEBOY_CART_SIZE> fake_rom = gen_fake_rom();
+  const std::array<BYTE, Constants::GAMEBOY_CART_SIZE> fake_rom =
+      gen_fake_rom();
   // removes test.gb when remover goes out of scope
   TestFileRemover remover("test.gb");
 
   std::ofstream test_file("test.gb", std::ios::binary);
   if (test_file.is_open()) {
     test_file.write(reinterpret_cast<const char*>(fake_rom.data()),
-                    GAMEBOY_CART_SIZE);
+                    Constants::GAMEBOY_CART_SIZE);
   }
   test_file.close();
 
