@@ -9,6 +9,10 @@ using SIGNED_BYTE = int8_t;
 using WORD = uint16_t;
 using SIGNED_WORD = int16_t;
 
+namespace Constants {
 constexpr int GAMEBOY_CART_SIZE{0x200000};
+
+constexpr int MAXCYCLES{69905};
+};  // namespace Constants
 
 #endif

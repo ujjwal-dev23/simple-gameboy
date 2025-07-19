@@ -3,8 +3,8 @@
 #include <fstream>
 #include <string_view>
 
-#include "../include/constants.hpp"
 #include "../src/cartridge/cartridge.hpp"
+#include "../src/constants.hpp"
 
 // Generates a fake rom with repeating patterns of [0,1,2,3,...]
 const std::array<BYTE, GAMEBOY_CART_SIZE> gen_fake_rom() {
@@ -15,6 +15,7 @@ const std::array<BYTE, GAMEBOY_CART_SIZE> gen_fake_rom() {
   return fake_rom;
 }
 
+// Used to delete Test File when test case finishes
 struct TestFileRemover {
   std::string_view filepath;
 
@@ -23,10 +24,11 @@ struct TestFileRemover {
   ~TestFileRemover() { std::filesystem::remove(filepath); }
 };
 
-Cartridge game_cart;
-
 TEST_CASE("rom_loading_into_cart_correctly", "[cartridge][rom]") {
+  Cartridge game_cart;
+
   const std::array<BYTE, GAMEBOY_CART_SIZE> fake_rom = gen_fake_rom();
+  // removes test.gb when remover goes out of scope
   TestFileRemover remover("test.gb");
 
   std::ofstream test_file("test.gb", std::ios::binary);

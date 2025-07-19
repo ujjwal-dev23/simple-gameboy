@@ -3,7 +3,8 @@
 #include <algorithm>
 #include <fstream>
 
-const std::array<BYTE, GAMEBOY_CART_SIZE>& Cartridge::get_memory() const {
+const std::array<BYTE, Constants::GAMEBOY_CART_SIZE>& Cartridge::get_memory()
+    const {
   return memory;
 }
 
@@ -15,6 +16,7 @@ void Cartridge::load_game_into_cart(const std::string rom_file_path) {
   if (!rom.is_open()) {
     // TODO: Implement some form of error handling
   }
-  rom.read(reinterpret_cast<char*>(memory.data()), GAMEBOY_CART_SIZE);
+  rom.read(reinterpret_cast<char*>(memory.data()),
+           Constants::GAMEBOY_CART_SIZE);
   rom.close();
 }

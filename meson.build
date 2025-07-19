@@ -7,10 +7,6 @@ build_sources = files(
   'src/main.cpp'
 )
 
-build_headers = files(
-  'src/main.hpp'
-)
-
 emu_executable = executable(
   'gb_emu',
   build_sources,
@@ -18,18 +14,19 @@ emu_executable = executable(
   cpp_args: ['-Wall', '-Wextra', '-Werror', '-pedantic-errors', '-Wconversion', '-Wsign-conversion']
 )
 
+# --- Tests ---
+
 test_deps = [dependency('catch2', fallback: ['catch2', 'catch2_with_main_dep'])]
 
-test_sources = files(
-  'tests/sample_test.cpp',
+cart_test_sources = files(
   'tests/cartridge_tests.cpp',
   'src/cartridge/cartridge.cpp',
 )
 
-test_executable = executable(
-  'gb_emu_tests',
-  test_sources,
+cart_test_executable = executable(
+  'cartridge_test_runner',
+  cart_test_sources,
   dependencies: test_deps
 )
 
-test('unit_tests', test_executable)
+test('cartridge_tests', cart_test_executable)
